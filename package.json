@@ -1,10 +1,10 @@
 {
   "name": "generator-tf-beanstalk",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "template to create terraform project for beanstalk deployment",
   "repository": {
     "type" : "git",
-    "url" : "https://github.com/trietlam/generator-tf-beanstalk.gitt"
+    "url" : "https://github.com/trietlam/generator-tf-beanstalk.git"
   },
   "homepage": "",
   "author": {
