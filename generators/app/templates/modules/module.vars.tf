@@ -18,3 +18,9 @@ variable "db_config" {
     instance_type = string
   })
 }
+
+variable "eb_config" {
+  type=object({
+    env = string
+  })
+}

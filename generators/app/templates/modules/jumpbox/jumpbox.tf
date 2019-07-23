@@ -21,6 +21,20 @@ resource "aws_security_group" "allow_ssh" {
   }
 }
 
+# data "template_file" "user_account" {
+#   template = "${file("${path.module}/jumpbox_users.tlp")}"
+# }
+
+# locals {
+#   user_data = "${data.template_file.user_account.rendered}"
+# }
+
+resource "aws_key_pair" "terraform_ec2_jumpbox_key" {
+  key_name = "terraform_ec2_jumpbox_key"
+  public_key = "your public key here"
+//  public_key = "${file("terraform_ec2_key.pub")}"
+}
+
 resource "aws_instance" "ec2-instance" {
   count = "${var.instance_count}"
   ami = "ami-075caa3491def750b" # Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type
@@ -30,8 +44,8 @@ resource "aws_instance" "ec2-instance" {
   security_groups = ["${aws_security_group.allow_ssh.id}"]
   vpc_security_group_ids = "${var.security_group_ids}"
 
-  # user_data = "${var.instance_user_data}"
-  # key_name = "${var.instance_key_name}"
+  # user_data = "${local.user_data}"
+  key_name = "terraform_ec2_jumpbox_key"
 
   tags = {
     Terraform  = true

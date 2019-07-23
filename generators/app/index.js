@@ -27,7 +27,7 @@ module.exports = class extends Generator {
         default: "deployment" // Default to deployment profile
       },
       {
-        type: "input",
+        type: "confirm",
         name: "jumpbox",
         message: "Do you need an EC2 instance as jumpbox ?",
         default: false
@@ -46,8 +46,8 @@ module.exports = class extends Generator {
     this.fs.copy(this.templatePath("."), this.destinationPath("."));
 
     this.fs.copyTpl(
-      this.templatePath("main.tfvars"),
-      this.destinationPath("main.tfvars"),
+      this.templatePath("terraform.tfvars"),
+      this.destinationPath("terraform.tfvars"),
       {
         profile: this.props.profile,
         name: this.props.projectName,
@@ -56,8 +56,8 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath("modules/jumpbox/jumpbox.var.tf"),
-      this.destinationPath("modules/jumpbox/jumpbox.var.tf"),
+      this.templatePath("modules/jumpbox/jumpbox.vars.tf"),
+      this.destinationPath("modules/jumpbox/jumpbox.vars.tf"),
       { jumpbox: this.props.jumpbox ? 1 : 0 }
     );
   }
